@@ -1,16 +1,17 @@
 {
-  "name": "backend",
+  "name": "travel-india-backend",
   "version": "1.0.0",
+  "description": "Backend for Travel Together in India app",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "bcryptjs": "...",
-    "cors": "...",
-    "dotenv": "...",
-    "express": "...",
-    "jsonwebtoken": "...",
-    "mongoose": "..."
+    "express": "^4.19.2",
+    "mongoose": "^8.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
   }
 }
