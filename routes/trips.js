@@ -2,7 +2,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const express = require("express");
 const router = express.Router();
 const Trip = require("../models/Trip");
-const authMiddleware = require("../middleware/authMiddleware");
+
 
 // CREATE TRIP (Protected)
 router.post("/", authMiddleware, async (req, res) => {
