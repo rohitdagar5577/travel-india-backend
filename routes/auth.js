@@ -1,12 +1,14 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const User = require("../models/User");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 /* ============================
-   SIGNUP
+   SIGN UP
    POST /api/auth/signup
 ============================ */
 router.post("/signup", async (req, res) => {
@@ -87,6 +89,38 @@ router.post("/login", async (req, res) => {
     });
   } catch (err) {
     console.error("Login error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+/* ============================
+   UPDATE PROFILE
+   PUT /api/auth/profile
+   (JWT PROTECTED)
+============================ */
+router.put("/profile", authMiddleware, async (req, res) => {
+  try {
+    const { name, country, city, bio } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { name, country, city, bio },
+      { new: true }
+    );
+
+    res.json({
+      message: "Profile updated successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        country: user.country,
+        city: user.city,
+        bio: user.bio
+      }
+    });
+  } catch (err) {
+    console.error("Profile update error:", err);
     res.status(500).json({ error: "Server error" });
   }
 });
